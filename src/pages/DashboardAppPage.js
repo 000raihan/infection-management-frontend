@@ -2,14 +2,37 @@ import '../App.css';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 // @mui
-import { Grid, Card, Container } from '@mui/material';
+import { Grid, Card, Container, Box } from '@mui/material';
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from "react-chartjs-2";
+import {faker} from '@faker-js/faker';
 // sections
 import { AppWebsiteVisits, AppWidgetSummary } from '../sections/@dashboard/app';
 
+
+
 // ----------------------------------------------------------------------
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 
 export default function DashboardAppPage({ sx, ...other }) {
-  const [openOne, setOpenOne] = useState(false);
+  const [openOne, setOpenOne] = useState(true);
   const handleOne = () => {
     setOpenOne(true);
     setOpenTwo(false);
@@ -46,6 +69,97 @@ export default function DashboardAppPage({ sx, ...other }) {
       : 0;
   };
 
+
+// -------------- chart js--------
+const options1 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'First Line Choice & Highest Efficacy',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options2 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'Azole Resistance & Efficacy is Lower',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options3 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'Not Good Choice for IC & Azole Resistance Concern',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+
+
+const labels = [''];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[90,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FFC000',
+    }
+  ],
+};
+const data2 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[70,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+const data3 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[40,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+
   return (
     <>
       <Helmet>
@@ -55,16 +169,15 @@ export default function DashboardAppPage({ sx, ...other }) {
       <Container maxWidth="xl">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary onClick={handleOne} title="Patient History" color={openOne ? 'warning' : 'primary'} />
+            <AppWidgetSummary title="Patient History" color={openOne ? 'warning' : 'primary'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary onClick={handleTwo} title="Diagnosis" color={openTwo ? 'warning' : 'primary'} />
+            <AppWidgetSummary  title="Diagnosis" color={openTwo ? 'warning' : 'primary'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleThree}
               title="Effective Anti-Infective"
               color={openThree ? 'warning' : 'primary'}
             />
@@ -112,9 +225,14 @@ export default function DashboardAppPage({ sx, ...other }) {
                       </ul>
 
                       <hr />
-                      <button className="button-previous" onClick={handlePage} onKeyDown={handlePage}>
-                        Previous
-                      </button>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <button className="button-previous" style={{fontWeight:"600", fontSize:"1.5rem"}}  onClick={handlePage} onKeyDown={handlePage}>
+                          Previous
+                        </button>
+                        <button className="button-next" style={{fontWeight:"600", fontSize:"1.5rem"}}  onClick={handleTwo} onKeyDown={handlePage}>
+                          Next
+                        </button>
+                      </Box>
                     </>
                   )}
                 </AppWebsiteVisits>
@@ -135,6 +253,14 @@ export default function DashboardAppPage({ sx, ...other }) {
                   <p>
                     <strong>Suspected Diagnosis:</strong> Invasive Candidiasis
                   </p>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button className="button-previous" style={{fontWeight:"600", fontSize:"1.5rem"}}  onClick={handlePage} onKeyDown={handlePage}>
+                      Previous
+                    </button>
+                    <button className="button-next" style={{fontWeight:"600", fontSize:"1.5rem"}}  onClick={handleThree} onKeyDown={handlePage}>
+                      Next
+                    </button>
+                  </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -150,12 +276,22 @@ export default function DashboardAppPage({ sx, ...other }) {
                 {...other}
               >
                 <AppWebsiteVisits>
+                  <div>
+
                   <div className="box-flex">
                     <ul className="box-list">
                       <li
                         style={{
-                          color: changeContent === 1 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 1 ? '700' : '400',
+                          color: changeContent === 1 ? 'white' : '#000',
+                          fontWeight: '600',
+                          backgroundColor: changeContent === 1 ? '#2065D1' : 'white',
+                          listStyle:"none",
+                          minWidth:"270px",
+                          maxWidth:"max-content",
+                          textAlign:"center",
+                          marginBottom:".5rem",
+                          padding:".3rem .5rem",
+                          border:"1px solid #2065D1"
                         }}
                       >
                         <div
@@ -165,14 +301,23 @@ export default function DashboardAppPage({ sx, ...other }) {
                           onKeyDown={handleContent}
                           role="button"
                           tabIndex={0}
+                          style={{width:"100%", height:"100%"}}
                         >
                           Anidulafungin
                         </div>
                       </li>
                       <li
-                        style={{
-                          color: changeContent === 2 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 2 ? '700' : '400',
+                         style={{
+                          color: changeContent === 2 ? 'white' : '#000',
+                          fontWeight: '600',
+                          backgroundColor: changeContent === 2 ? '#2065D1' : 'white',
+                          listStyle:"none",
+                          minWidth:"270px",
+                          maxWidth:"max-content",
+                          textAlign:"center",
+                          marginBottom:".5rem",
+                          padding:".3rem .5rem",
+                          border:"1px solid #2065D1"
                         }}
                       >
                         <div
@@ -188,8 +333,16 @@ export default function DashboardAppPage({ sx, ...other }) {
                       </li>
                       <li
                         style={{
-                          color: changeContent === 3 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 3 ? '700' : '400',
+                          color: changeContent === 3 ? 'white' : '#000',
+                          fontWeight: '600',
+                          backgroundColor: changeContent === 3 ? '#2065D1' : 'white',
+                          listStyle:"none",
+                          minWidth:"270px",
+                          maxWidth:"max-content",
+                          textAlign:"center",
+                          marginBottom:".5rem",
+                          padding:".3rem .5rem",
+                          border:"1px solid #2065D1"
                         }}
                       >
                         <div
@@ -200,41 +353,65 @@ export default function DashboardAppPage({ sx, ...other }) {
                           role="button"
                           tabIndex={0}
                         >
-                          Voriconazole
+                        Voriconazole
                         </div>
                       </li>
                     </ul>
 
                     {changeContent === 1 && (
-                      <div className="box-flex-inside">
+                      <>
+                       <Bar style={{height:"500px", width:"700px"}} options={options1} data={data} />
+                      {/* <div className="box-flex-inside">
                         <div className="box-item" style={{ backgroundColor: 'yellow' }}>
                           &nbsp;
                         </div>
                         <div className="box-text">
                           <p>First Line Choice & Highest Efficacy</p>
                         </div>
-                      </div>
+                      </div> */}
+                      </>
                     )}
                     {changeContent === 2 && (
-                      <div className="box-flex-inside">
+                      <>
+                      <Bar style={{height:"500px", width:"700px"}} options={options2} data={data2} />
+                      {/* <div className="box-flex-inside">
                         <div className="box-item" style={{ backgroundColor: 'red', height: '300px' }}>
                           &nbsp;
                         </div>
                         <div className="box-text">
                           <p>Azole Resistance & Efficacy is Lower</p>
                         </div>
-                      </div>
+                      </div> */}
+                      </>
                     )}
                     {changeContent === 3 && (
-                      <div className="box-flex-inside">
+                      <div> 
+                       
+                       <Bar 
+                     
+                       style={{height:"500px", width:"700px"}} options={options3} data={data3} />
+
+                      {/* <div className="box-flex-inside">
                         <div className="box-item" style={{ backgroundColor: 'red', height: '350px' }}>
                           &nbsp;
                         </div>
                         <div className="box-text">
                           <p>Not Good Choice for IC & Azole Resistance Concern</p>
                         </div>
+                      </div> */}
                       </div>
                     )}
+
+                    
+                  </div>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button className="button-previous" style={{fontWeight:"600", fontSize:"1.5rem"}} onClick={handleTwo} onKeyDown={handlePage}>
+                      Previous
+                    </button>
+                    <button className="button-next" style={{fontWeight:"600", fontSize:"1.5rem"}} onClick={handleOne} onKeyDown={handlePage}>
+                      Reset
+                    </button>
+                  </Box>
                   </div>
                 </AppWebsiteVisits>
               </Card>

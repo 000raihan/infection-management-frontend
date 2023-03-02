@@ -2,14 +2,29 @@ import '../App.css';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 // @mui
-import { Grid, Card, Container } from '@mui/material';
+import { Grid, Card, Container, Box } from '@mui/material';
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from "react-chartjs-2";
+import {faker} from '@faker-js/faker';
+
 // sections
 import { AppWebsiteVisits, AppWidgetSummary } from '../sections/@dashboard/app';
+
+
 
 // ----------------------------------------------------------------------
 
 export default function UserPage({ sx, ...other }) {
-  const [openOne, setOpenOne] = useState(false);
+  const [openOne, setOpenOne] = useState(true);
   const handleOne = () => {
     setOpenOne(true);
     setOpenTwo(false);
@@ -51,6 +66,97 @@ export default function UserPage({ sx, ...other }) {
       : 0;
   };
 
+  // -------------- chart js--------
+const options1 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'OOPS! High Chance of Nephrotoxicity',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options2 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'Not a Suitable Option',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options3 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'Best Choice',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+
+
+const labels = [''];
+
+const data1 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[70,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+const data2 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[40,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+const data3 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[90,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FFC000',
+    }
+  ],
+};
+
+
   return (
     <>
       <Helmet>
@@ -60,16 +166,15 @@ export default function UserPage({ sx, ...other }) {
       <Container maxWidth="xl">
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary onClick={handleOne} title="Patient History" color={openOne ? 'warning' : 'primary'} />
+            <AppWidgetSummary  title="Patient History" color={openOne ? 'warning' : 'primary'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary onClick={handleTwo} title="Causative Pathogen" color={openTwo ? 'warning' : 'primary'} />
+            <AppWidgetSummary  title="Causative Pathogen" color={openTwo ? 'warning' : 'primary'} />
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleThree}
               title="Resistant Profile"
               color={openThree ? 'warning' : 'primary'}
             />
@@ -112,6 +217,23 @@ export default function UserPage({ sx, ...other }) {
                       <strong>Antibiotics:</strong> Meropenem & Antifungal: Voriconazole added.
                     </p>
                     <p>Patient is transferred to ICU with high CRP value.</p>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      {/* <button
+                        className="button-previous"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleOne}
+                      >
+                        Previous
+                      </button> */}
+                      <button
+                        className="button-next"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleTwo}
+                      >
+                        Next
+                      </button>
+                    </Box>
                   </>
                 </AppWebsiteVisits>
               </Card>
@@ -133,6 +255,22 @@ export default function UserPage({ sx, ...other }) {
                     <li>Resistant profile ensures that Acinatobacter is Carbapenem resistant</li>
                     <li>MDR Pathogens</li>
                   </ul>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <button
+                        className="button-previous"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleOne}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        className="button-next"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleThree}
+                      >
+                        Next
+                      </button>
+                    </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -190,6 +328,22 @@ export default function UserPage({ sx, ...other }) {
                       </tr>
                     </tbody>
                   </table>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <button
+                        className="button-previous"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleTwo}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        className="button-next"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleFour}
+                      >
+                        Next
+                      </button>
+                    </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -205,12 +359,22 @@ export default function UserPage({ sx, ...other }) {
                 {...other}
               >
                 <AppWebsiteVisits>
+                  <div>
+
                   <div className="box-flex">
                     <ul className="box-list">
                       <li
                         style={{
-                          color: changeContent === 1 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 1 ? '700' : '400',
+                          color: changeContent === 1 ? 'white' : '#000',
+                          fontWeight: '600',
+                          backgroundColor: changeContent === 1 ? '#2065D1' : 'white',
+                          listStyle:"none",
+                          minWidth:"270px",
+                          maxWidth:"max-content",
+                          textAlign:"center",
+                          marginBottom:".5rem",
+                          padding:".3rem .5rem",
+                          border:"1px solid #2065D1"
                         }}
                       >
                         <div
@@ -226,8 +390,16 @@ export default function UserPage({ sx, ...other }) {
                       </li>
                       <li
                         style={{
-                          color: changeContent === 2 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 2 ? '700' : '400',
+                          color: changeContent === 2 ? 'white' : '#000',
+                          fontWeight: '600',
+                          backgroundColor: changeContent === 2 ? '#2065D1' : 'white',
+                          listStyle:"none",
+                          minWidth:"270px",
+                          maxWidth:"max-content",
+                          textAlign:"center",
+                          marginBottom:".5rem",
+                          padding:".3rem .5rem",
+                          border:"1px solid #2065D1"
                         }}
                       >
                         <div
@@ -241,11 +413,19 @@ export default function UserPage({ sx, ...other }) {
                           Meropenem
                         </div>
                       </li>
-                      <li
-                        style={{
-                          color: changeContent === 3 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 3 ? '700' : '400',
-                        }}
+                      <div
+                       style={{
+                        color: changeContent === 3 ? 'white' : '#000',
+                        fontWeight: '600',
+                        backgroundColor: changeContent === 3 ? '#2065D1' : 'white',
+                        listStyle:"none",
+                        minWidth:"270px",
+                        maxWidth:"max-content",
+                        textAlign:"center",
+                        marginBottom:".5rem",
+                        padding:".3rem .5rem",
+                        border:"1px solid #2065D1"
+                      }}
                       >
                         <div
                           id="3"
@@ -257,38 +437,26 @@ export default function UserPage({ sx, ...other }) {
                         >
                           Tigecycline
                         </div>
-                      </li>
+                      </div>
                     </ul>
                     {changeContent === 1 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'yellow' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>OOPS! High Chance of Nephrotoxicity</p>
-                        </div>
-                      </div>
+                       <Bar style={{height:"500px", width:"700px"}} options={options1} data={data1} />
                     )}
                     {changeContent === 2 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'red', height: '300px' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>Not a Suitable Option</p>
-                        </div>
-                      </div>
+                       <Bar style={{height:"500px", width:"700px"}} options={options2} data={data2} />
                     )}
                     {changeContent === 3 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'red', height: '350px' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>Best Choice</p>
-                        </div>
-                      </div>
+                       <Bar style={{height:"500px", width:"700px"}} options={options3} data={data3} />
                     )}
+                  </div>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button className="button-previous" style={{fontWeight:"600", fontSize:"1.5rem"}} onClick={handleThree} >
+                      Previous
+                    </button>
+                    <button className="button-next" style={{fontWeight:"600", fontSize:"1.5rem"}} onClick={handleOne}>
+                      Reset
+                    </button>
+                  </Box>
                   </div>
                 </AppWebsiteVisits>
               </Card>

@@ -2,14 +2,19 @@ import '../App.css';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 // @mui
-import { Grid, Card, Container } from '@mui/material';
+import { Grid, Card, Container, Box } from '@mui/material';
+
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+
+import { Bar } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
 // sections
 import { AppWebsiteVisits, AppWidgetSummary } from '../sections/@dashboard/app';
 
 // ----------------------------------------------------------------------
 
 export default function ProductsPage({ sx, ...other }) {
-  const [openOne, setOpenOne] = useState(false);
+  const [openOne, setOpenOne] = useState(true);
   const handleOne = () => {
     setOpenOne(true);
     setOpenTwo(false);
@@ -51,6 +56,96 @@ export default function ProductsPage({ sx, ...other }) {
       : 0;
   };
 
+   // -------------- chart js--------
+const options1 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'Not Indicated in VAP',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options2 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text: 'NDM Coverage Required ',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+const options3 = {
+  responsive: true,
+  animated:true,
+  plugins: {
+    legend: {
+      position: 'top',
+      display:false
+    },
+    title: {
+      display: true,
+      text:'SUPERB CHOICE',
+      font:{
+        size:20
+      }
+    },
+  },
+};
+
+
+const labels = [''];
+
+const data1 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[70,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+const data2 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[40,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FF0000',
+    }
+  ],
+};
+const data3 = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data:[90,100],
+      // data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      backgroundColor: '#FFC000',
+    }
+  ],
+};
+
   return (
     <>
       <Helmet>
@@ -65,7 +160,7 @@ export default function ProductsPage({ sx, ...other }) {
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleTwo}
+              // onClick={handleTwo}
               title="Diagnosis & Causative Pathogen"
               color={openTwo ? 'warning' : 'primary'}
             />
@@ -73,7 +168,7 @@ export default function ProductsPage({ sx, ...other }) {
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleThree}
+              // onClick={handleThree}
               title="Antibiogram Report"
               color={openThree ? 'warning' : 'primary'}
             />
@@ -81,7 +176,7 @@ export default function ProductsPage({ sx, ...other }) {
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleFour}
+              // onClick={handleFour}
               title="Effective Anti-Infective"
               color={openFour ? 'warning' : 'primary'}
             />
@@ -114,6 +209,22 @@ export default function ProductsPage({ sx, ...other }) {
                       <strong>On Day 10:</strong> No improvement. Neutropenic Fever.
                     </li>
                   </ul>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    {/* <button
+                        className="button-previous"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handl}
+                      >
+                        Previous
+                      </button> */}
+                    <button
+                      className="button-next"
+                      style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                      onClick={handleTwo}
+                    >
+                      Next
+                    </button>
+                  </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -130,6 +241,22 @@ export default function ProductsPage({ sx, ...other }) {
               >
                 <AppWebsiteVisits>
                   <p>Patient is suspected with Carbapanem Resistant Klebsiella VAP.</p>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button
+                      className="button-previous"
+                      style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                      onClick={handleOne}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      className="button-next"
+                      style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                      onClick={handleThree}
+                    >
+                      Next
+                    </button>
+                  </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -157,6 +284,22 @@ export default function ProductsPage({ sx, ...other }) {
                     <li>Tigecycline-S</li>
                     <li>Ceftazidime-Avibactam-R</li>
                   </ul>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <button
+                      className="button-previous"
+                      style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                      onClick={handleTwo}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      className="button-next"
+                      style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                      onClick={handleFour}
+                    >
+                      Next
+                    </button>
+                  </Box>
                 </AppWebsiteVisits>
               </Card>
             </Grid>
@@ -172,91 +315,116 @@ export default function ProductsPage({ sx, ...other }) {
                 {...other}
               >
                 <AppWebsiteVisits>
-                  <div className="box-flex">
-                    <ul className="box-list">
-                      <li
-                        style={{
-                          color: changeContent === 1 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 1 ? '700' : '400',
-                        }}
-                      >
-                        <div
-                          id="1"
-                          className="list"
-                          onClick={handleContent}
-                          onKeyDown={handleContent}
-                          role="button"
-                          tabIndex={0}
+                  <div>
+                    <div className="box-flex">
+                      <ul className="box-list">
+                        <li
+                          style={{
+                            color: changeContent === 1 ? 'white' : '#000',
+                            fontWeight: '600',
+                            fontSize: '1.5rem',
+                            backgroundColor: changeContent === 1 ? '#2065D1' : 'white',
+                            listStyle: 'none',
+                            minWidth: '300px',
+                            maxWidth: '300px',
+                            textAlign: 'center',
+                            marginBottom: '.5rem',
+                            padding: '.3rem .5rem',
+                            border: '1px solid #2065D1',
+                          }}
                         >
-                          Tigecycline
-                        </div>
-                      </li>
-                      <li
-                        style={{
-                          color: changeContent === 2 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 2 ? '700' : '400',
-                        }}
-                      >
-                        <div
-                          id="2"
-                          className="list"
-                          onClick={handleContent}
-                          onKeyDown={handleContent}
-                          role="button"
-                          tabIndex={0}
+                          <div
+                            id="1"
+                            className="list"
+                            onClick={handleContent}
+                            onKeyDown={handleContent}
+                            role="button"
+                            tabIndex={0}
+                            
+                          >
+                            Tigecycline
+                          </div>
+                        </li>
+                        <li
+                          style={{
+                            color: changeContent === 2 ? 'white' : '#000',
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            minWidth: '300px',
+                            maxWidth: '300px',
+                            backgroundColor: changeContent === 2 ? '#2065D1' : 'white',
+                            listStyle: 'none',
+                            textAlign: 'center',
+                            marginBottom: '.5rem',
+                            padding: '.3rem .5rem',
+                            border: '1px solid #2065D1',
+                          }}
                         >
-                          Ceftazidime-Avibactam
-                        </div>
-                      </li>
-                      <li
-                        style={{
-                          color: changeContent === 3 ? '#2065D1' : '#000',
-                          fontWeight: changeContent === 3 ? '700' : '400',
-                        }}
-                      >
-                        <div
-                          id="3"
-                          className="list"
-                          onClick={handleContent}
-                          onKeyDown={handleContent}
-                          role="button"
-                          tabIndex={0}
+                          <div
+                            id="2"
+                            className="list"
+                            onClick={handleContent}
+                            onKeyDown={handleContent}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            Ceftazidime-Avibactam
+                          </div>
+                        </li>
+                        <li
+                          style={{
+                            color: changeContent === 3 ? 'white' : '#000',
+                            fontWeight: '600',
+                            fontSize: '1.5rem',
+                            backgroundColor: changeContent === 3 ? '#2065D1' : 'white',
+                            listStyle: 'none',
+                            minWidth: '300px',
+                            maxWidth: '300px',
+                            textAlign: 'center',
+                            marginBottom: '.5rem',
+                            padding: '.3rem .5rem',
+                            border: '1px solid #2065D1',
+                          }}
                         >
-                          Ceftazidime-Avibactam + Aztreonam
-                        </div>
-                      </li>
-                    </ul>
+                          <div
+                            id="3"
+                            className="list"
+                            onClick={handleContent}
+                            onKeyDown={handleContent}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            Ceftazidime-Avibactam + Aztreonam
+                          </div>
+                        </li>
+                      </ul>
 
-                    {changeContent === 1 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'yellow' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>Not Indicated in VAP</p>
-                        </div>
-                      </div>
-                    )}
-                    {changeContent === 2 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'red', height: '300px' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>NDM Coverage Required </p>
-                        </div>
-                      </div>
-                    )}
-                    {changeContent === 3 && (
-                      <div className="box-flex-inside">
-                        <div className="box-item" style={{ backgroundColor: 'red', height: '350px' }}>
-                          &nbsp;
-                        </div>
-                        <div className="box-text">
-                          <p>Superb choice</p>
-                        </div>
-                      </div>
-                    )}
+                      {changeContent === 1 && (
+                        <Bar style={{ height: '500px', width: '700px' }} options={options1} data={data1} />
+                      )}
+                      {changeContent === 2 && (
+                        <Bar style={{ height: '500px', width: '700px' }} options={options2} data={data2} />
+                      )}
+                      {changeContent === 3 && (
+                        <Bar style={{ height: '500px', width: '700px' }} options={options3} data={data3} />
+                      )}
+                    </div>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <button
+                        className="button-previous"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleThree}
+                      >
+                        Previous
+                      </button>
+                      <button
+                        className="button-next"
+                        style={{ fontWeight: '600', fontSize: '1.5rem' }}
+                        onClick={handleOne}
+                      >
+                        Reset
+                      </button>
+                    </Box>
                   </div>
                 </AppWebsiteVisits>
               </Card>
