@@ -50,14 +50,14 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
-        <Logo
+        {/* <Logo
           sx={{
             position: 'fixed',
             top: { xs: 16, sm: 24, md: 40 },
             left: { xs: 16, sm: 24, md: 40 },
           }}
-        />
-
+        /> */}
+{/* 
         {mdUp && (
           <StyledSection>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
@@ -65,11 +65,11 @@ export default function LoginPage() {
             </Typography>
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
           </StyledSection>
-        )}
+        )} */}
 
         <Container maxWidth="sm">
           <StyledContent>
-            <Typography variant="h4" gutterBottom>
+            {/* <Typography variant="h4" gutterBottom>
               Sign in to Minimal
             </Typography>
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
               </Typography>
-            </Divider>
+            </Divider> */}
 
             <LoginForm />
           </StyledContent>

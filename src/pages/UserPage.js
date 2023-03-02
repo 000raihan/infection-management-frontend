@@ -182,7 +182,6 @@ const data3 = {
 
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary
-              onClick={handleFour}
               title="Effective Anti-Infective"
               color={openFour ? 'warning' : 'primary'}
             />
@@ -388,7 +387,7 @@ const data3 = {
                           Colisitin
                         </div>
                       </li>
-                      <li
+                      <Box
                         style={{
                           color: changeContent === 2 ? 'white' : '#000',
                           fontWeight: '600',
@@ -400,19 +399,21 @@ const data3 = {
                           marginBottom:".5rem",
                           padding:".3rem .5rem",
                           border:"1px solid #2065D1"
+                          
                         }}
+                        onClick={handleContent}
+                        onKeyDown={handleContent}
                       >
                         <div
                           id="2"
                           className="list"
-                          onClick={handleContent}
-                          onKeyDown={handleContent}
+
                           role="button"
                           tabIndex={0}
                         >
                           Meropenem
                         </div>
-                      </li>
+                      </Box>
                       <div
                        style={{
                         color: changeContent === 3 ? 'white' : '#000',
