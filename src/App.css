@@ -1,0 +1,99 @@
+p,
+ul,
+table,
+button,
+hr {
+  color: #000;
+  font-size: 30px;
+  margin-top: 0;
+  margin-bottom: 30px !important;
+}
+
+ol li,
+ul li {
+  list-style-position: inside;
+}
+
+p:last-child,
+ul:last-child,
+table:last-child,
+button:last-child {
+  margin-bottom: 0 !important;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  padding: 12px 8px;
+}
+
+td {
+  padding: 8px;
+}
+
+th {
+  background-color: #2065d1;
+  color: white;
+}
+
+td {
+  text-align: center;
+}
+
+button {
+  display: block;
+  border: none;
+  font-weight: 600;
+  background-color: transparent;
+  color: #2065d1;
+  cursor: pointer;
+}
+
+.list {
+  display: inline;
+  cursor: pointer;
+}
+
+.button-next {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.box-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  height: 400px;
+}
+.box-list {
+  margin-bottom: 0 !important;
+  width: 40%;
+}
+
+.box-flex-inside {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.box-item {
+  width: 30%;
+  height: 400px;
+}
+.box-text {
+  width: 70%;
+}
