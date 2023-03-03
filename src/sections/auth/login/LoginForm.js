@@ -24,6 +24,9 @@ export default function LoginForm() {
     if(!name){
       return
     }
+    if(!email){
+      return
+    }
    const res =  await axios.post("/api/user_info", {
       name,
       email
@@ -42,7 +45,7 @@ export default function LoginForm() {
     <>
       <Stack spacing={3}>
         <TextField value={name} onChange={e=>setName(e.target.value)} name="name" label="Full Name" />
-        <TextField value={email} onChange={e=>setEmail(e.target.value)} name="email" label="Email address" />
+        <TextField value={email} style={{color:"red"}} type="email" onChange={e=>setEmail(e.target.value)} name="email" label="Email address" />
 
         {/* <TextField
           name="password"
